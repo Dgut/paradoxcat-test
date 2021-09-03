@@ -1,0 +1,23 @@
+• Decode the binary data encoded in the audio fi le in WAV format (contained in the ZIP
+  archive together with these instructions)
+• The data is encoded using Audio Frequency Shift-Keying (AFSK) in its simplest form
+  o A single bit is the waveform between two zero-crossings
+  o A one signal is a rectangle signal of t = 320 microseconds
+  o A zero signal is a rectangle signal of t = 640 microseconds
+  o The real-life data might no longer be an ideal rectangle, since it’s been stored
+    on physical media (e.g. a tape drive)
+• The bit-stream that can be extracted from the decoded audio signal can be converted
+  into bytes
+  o The signal starts with a lead tone of roughly 2.5 seconds (all 1-bits, or 0x bytes),
+    and ends with an end block of about 0.5 seconds (all 1-bits).
+  o 11 bits are used to encode a single byte – 8 bits for the byte plus one start bit
+    (valued 0) and two stop bits (valued 1).
+  o The data is encoded with least-significant bit first.
+• The byte-stream has the following form:
+  o The fi rst two bytes are 0x42 and 0x03
+  o After that, the data is structured in 64 messages of 30 bytes each, with the 31st byte 
+    being the checksum of the 30 bytes before that (in total 1984 bytes = 64 * 31 bytes).
+    The last byte before the end block is a 0x00 byte.
+• The checksums will help you detect whether or not your decoding works
+• The data in this real-life fi le will have no meaning to you, unless you can figure out the
+  machine that created it, and this is nearly impossible (so don’t try).
